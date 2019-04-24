@@ -14,6 +14,7 @@ public class InputTest : MonoBehaviour
     public GameObject rifle;
     private GameObject rifleeffect;
     private bool isfire;
+    private Timer shootcooldown;
 
     private string currentButton;//当前按下的按键
     private string currentAxis;//当前移动的轴向
@@ -43,13 +44,15 @@ public class InputTest : MonoBehaviour
     void Start()
     {
         controller = GetComponentInParent<CharacterController>();
+        shootcooldown = gameObject.AddComponent<Timer>();
+        shootcooldown.Duration = 0.1f;
+        shootcooldown.Run();
     }
     // Update is called once per frame
     void Update()
     {
         getAxis();
         getButtons();
-
         //Debug.Log("Test");
         //if (Input.GetKey(KeyCode.Joystick1Button0))
         //{
@@ -97,7 +100,11 @@ public class InputTest : MonoBehaviour
         isfire = false;
         if (Input.GetKey(KeyCode.Joystick1Button7))
         {
-            isfire = true;
+            if (shootcooldown.Finished == true)
+            {
+                isfire = true;
+                shootcooldown.Run();
+            }
         }
         Fire();
 
@@ -199,7 +206,7 @@ public class InputTest : MonoBehaviour
         Vector3 direction = new Vector3(0,0,0);
         Vector3 look_direction = new Vector3(0, 0, 0);
         look_direction = new Vector3(axis4, 0, axis7);
-            direction = transform.TransformDirection(Xaxis, 0, axis3);
+            direction = transform.TransformDirection(Xaxis, 0, Yaxis);
 
         if (!controller.isGrounded)
         {//判断人物是否在地面上 
@@ -226,24 +233,24 @@ public class InputTest : MonoBehaviour
     /// <summary>
     /// show the data onGUI
     /// </summary>
-    void OnGUI()
-    {
-        GUI.TextArea(new Rect(200, 0, 250, 50), "Current Button : " + currentButton);//使用GUI在屏幕上面实时打印当前按下的按键
-        GUI.TextArea(new Rect(200, 50, 250, 50), "Current Axis : " + currentAxis);//使用GUI在屏幕上面实时打印当前按下的轴
-        GUI.TextArea(new Rect(200, 100, 250, 50), "X Value : " + Xaxis);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(200, 150, 250, 50), "Y Value : " + Yaxis);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(200, 200, 250, 50), "3 : " + axis3);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(200, 250, 250, 50), "4 : " + axis4);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(200, 300, 250, 50), "5 : " + axis5);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(200, 350, 250, 50), "6 : " + axis6);//使用GUI在屏幕上面实时打印当前按下的轴的量 
-        GUI.TextArea(new Rect(300, 0, 250, 50), "7 : " + axis7);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(300, 50, 250, 50), "8 : " + axis8);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(300, 100, 250, 50), "9 : " + axis9);//使用GUI在屏幕上面实时打印当前按下的轴的量 
-        GUI.TextArea(new Rect(300, 150, 250, 50), "10 : " + axis10);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(300, 200, 250, 50), "11 : " + axis11);//使用GUI在屏幕上面实时打印当前按下的轴的量 GUI.TextArea(new Rect(100, 700, 250, 50), "6 : " + axis6);//使用GUI在屏幕上面实时打印当前按下的轴的量 
-        GUI.TextArea(new Rect(300, 250, 250, 50), "12 : " + axis12);//使用GUI在屏幕上面实时打印当前按下的轴的量
-        GUI.TextArea(new Rect(300, 300, 250, 50), "13 : " + axis13);//使用GUI在屏幕上面实时打印当前按下的轴的量
-    }
+    //void OnGUI()
+    //{
+    //    GUI.TextArea(new Rect(200, 0, 250, 50), "Current Button : " + currentButton);//使用GUI在屏幕上面实时打印当前按下的按键
+    //    GUI.TextArea(new Rect(200, 50, 250, 50), "Current Axis : " + currentAxis);//使用GUI在屏幕上面实时打印当前按下的轴
+    //    GUI.TextArea(new Rect(200, 100, 250, 50), "X Value : " + Xaxis);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(200, 150, 250, 50), "Y Value : " + Yaxis);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(200, 200, 250, 50), "3 : " + axis3);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(200, 250, 250, 50), "4 : " + axis4);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(200, 300, 250, 50), "5 : " + axis5);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(200, 350, 250, 50), "6 : " + axis6);//使用GUI在屏幕上面实时打印当前按下的轴的量 
+    //    GUI.TextArea(new Rect(300, 0, 250, 50), "7 : " + axis7);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(300, 50, 250, 50), "8 : " + axis8);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(300, 100, 250, 50), "9 : " + axis9);//使用GUI在屏幕上面实时打印当前按下的轴的量 
+    //    GUI.TextArea(new Rect(300, 150, 250, 50), "10 : " + axis10);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(300, 200, 250, 50), "11 : " + axis11);//使用GUI在屏幕上面实时打印当前按下的轴的量 GUI.TextArea(new Rect(100, 700, 250, 50), "6 : " + axis6);//使用GUI在屏幕上面实时打印当前按下的轴的量 
+    //    GUI.TextArea(new Rect(300, 250, 250, 50), "12 : " + axis12);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //    GUI.TextArea(new Rect(300, 300, 250, 50), "13 : " + axis13);//使用GUI在屏幕上面实时打印当前按下的轴的量
+    //}
 
     public void Fire()
     {
