@@ -15,14 +15,18 @@ public class RobotScript : MonoBehaviour
     private CharacterController characterController;
     private bool attackable = false;
     private NavMeshAgent navMeshAgent;
+    private Timer attackcooldown_timer;
     // Start is called before the first frame update
     void Start()
     {
+        attackcooldown_timer = gameObject.AddComponent<Timer>();
         animator = GetComponent<Animator>();
         tcollider = GetComponent<CapsuleCollider>();
         characterController = GetComponent<CharacterController>();
         target = GameObject.Find("EnergyTower");
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        attackcooldown_timer.Duration = 1.5f;
+        attackcooldown_timer.Run();
 
     }
 
@@ -34,15 +38,17 @@ public class RobotScript : MonoBehaviour
             
             move_direction = target.transform.position - transform.position;
             move_direction.y = 0;
-            characterController.Move(move_direction * Time.deltaTime /3);
+           // characterController.Move(move_direction * Time.deltaTime /3);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move_direction), Time.deltaTime * 10);
             AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
-            if (attackable && !stateinfo.IsName("attack"))
+            if (attackable && !stateinfo.IsName("attack")&& attackcooldown_timer.Finished == true)
             {
-                animator.SetTrigger("Attack");
+                Attack();
+                target.GetComponent<TowerScript>().GetAttacked(20);
+                attackcooldown_timer.Run();
             }
-          //  navMeshAgent.SetDestination(target.transform.position);
+            navMeshAgent.SetDestination(target.transform.position);
         }
     }
 
@@ -55,17 +61,24 @@ public class RobotScript : MonoBehaviour
         if(collision.transform.tag == "EnergyTower")
         {
             attackable = true;
+            navMeshAgent.isStopped = true ;
+           // navMeshAgent.Stop();
         }
     }
     public void TakeDamage()
     {
         hp -= 10;
-        if(hp<=0)
+        if (hp <= 0)
         {
             tcollider.enabled = false;
             characterController.enabled = false;
+            navMeshAgent.isStopped = true;
             alive = false;
             animator.SetTrigger("Die");
         }
+    }
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
 }

@@ -191,9 +191,11 @@
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Script\BulletScript.cs" />
+    <Compile Include="Assets\Script\DroneScript.cs" />
     <Compile Include="Assets\Script\EnemyGeneration.cs" />
     <Compile Include="Assets\Script\InputTest.cs" />
     <Compile Include="Assets\Script\RobotScript.cs" />
+    <Compile Include="Assets\Script\SceneChange.cs" />
     <Compile Include="Assets\Script\TestConsole.cs" />
     <Compile Include="Assets\Script\Timer.cs" />
     <Compile Include="Assets\Script\TowerScript.cs" />

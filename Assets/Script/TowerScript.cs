@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TowerScript : MonoBehaviour
 {
     [SerializeField]
     private int hp;
     private bool attackable = true;
+    public 
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +20,12 @@ public class TowerScript : MonoBehaviour
     {
         //if()
     }
-    public void GetAttacked()
+    public void GetAttacked(int damage)
     {
-        hp -= 10;
+        hp -= damage;
         if(hp<= 0)
         {
-
+            SceneManager.LoadScene("EndScene");
         }
     }
 }

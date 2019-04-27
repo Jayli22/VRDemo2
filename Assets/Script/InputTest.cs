@@ -45,7 +45,7 @@ public class InputTest : MonoBehaviour
     {
         controller = GetComponentInParent<CharacterController>();
         shootcooldown = gameObject.AddComponent<Timer>();
-        shootcooldown.Duration = 0.1f;
+        shootcooldown.Duration = 0.3f;
         shootcooldown.Run();
     }
     // Update is called once per frame
@@ -53,39 +53,7 @@ public class InputTest : MonoBehaviour
     {
         getAxis();
         getButtons();
-        //Debug.Log("Test");
-        //if (Input.GetKey(KeyCode.Joystick1Button0))
-        //{
-        //    Debug.Log("Button1");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button1))
-        //{
-        //    Debug.Log("Button2");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button2))
-        //{
-        //    Debug.Log("Button3");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button3))
-        //{
-        //    Debug.Log("Button4");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button4))
-        //{
-        //    Debug.Log("Button5");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button5))
-        //{
-        //    Debug.Log("Button6");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button6))
-        //{
-        //    Debug.Log("Button7");
-        //}
-        //if (Input.GetKey(KeyCode.Joystick1Button7))
-        //{
-        //    Debug.Log("Button8");
-        //}
+   
     }
     void getButtons()
     {
@@ -95,16 +63,21 @@ public class InputTest : MonoBehaviour
             if (Input.GetKeyDown((KeyCode)values.GetValue(x)))
             {
                 currentButton = values.GetValue(x).ToString();//遍历并获取当前按下的按键
+
             }
         }
-        isfire = false;
-        if (Input.GetKey(KeyCode.Joystick1Button7))
+        if (Input.GetKey(KeyCode.JoystickButton7))
         {
             if (shootcooldown.Finished == true)
             {
                 isfire = true;
                 shootcooldown.Run();
             }
+        }
+        if (Input.GetKeyUp(KeyCode.JoystickButton7))
+        {
+            isfire = false;
+
         }
         Fire();
 
@@ -115,7 +88,7 @@ public class InputTest : MonoBehaviour
     /// </summary>
     void getAxis()
     {
-        axis3 = 0;
+        Yaxis = 0;
         Xaxis = 0;
 
         if (Input.GetAxisRaw("X axis") > 0.3 || Input.GetAxisRaw("X axis") < -0.3)

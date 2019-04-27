@@ -1,4 +1,0 @@
-#Tue Apr 23 22:01:48 EDT 2019
-base.0=C\:\\Users\\lijia\\OneDrive - Worcester Polytechnic Institute (wpi.edu)\\Unity\\VRDemo2\\Temp\\gradleOut\\build\\intermediates\\transforms\\dexMerger\\release\\0
-path.0=classes.dex
-renamed.0=classes.dex

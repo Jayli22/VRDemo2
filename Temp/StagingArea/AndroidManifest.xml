@@ -12,7 +12,7 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
     </activity>
     <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" />
-    <meta-data android:name="unity.build-id" android:value="594f7c29-ac78-4277-8c40-39dee452ba63" />
+    <meta-data android:name="unity.build-id" android:value="2512310b-2a7f-4b07-b380-2dd6912613fe" />
     <meta-data android:name="unity.splash-mode" android:value="0" />
     <meta-data android:name="unity.splash-enable" android:value="False" />
   </application>
