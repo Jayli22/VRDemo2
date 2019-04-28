@@ -1356,6 +1356,7 @@ MonoBehaviour:
   bullet:
   - {fileID: 3780928388835367923, guid: 2071cb19ade68cd4a8ca099a1b2f28eb, type: 3}
   rifle: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+  audioClip: {fileID: 8300000, guid: 03ac78ed13e0ef648848e82a1dfe65be, type: 3}
 --- !u!124 &293483440
 Behaviour:
   m_ObjectHideFlags: 0
@@ -4966,6 +4967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: []
   rifle: {fileID: 0}
+  audioClip: {fileID: 0}
 --- !u!143 &957404159
 CharacterController:
   m_ObjectHideFlags: 0

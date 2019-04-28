@@ -15,7 +15,8 @@ public class InputTest : MonoBehaviour
     private GameObject rifleeffect;
     private bool isfire;
     private Timer shootcooldown;
-
+    public AudioClip audioClip;
+    private AudioSource audioSource;
     private string currentButton;//当前按下的按键
     private string currentAxis;//当前移动的轴向
     private float Xaxis;
@@ -45,8 +46,10 @@ public class InputTest : MonoBehaviour
     {
         controller = GetComponentInParent<CharacterController>();
         shootcooldown = gameObject.AddComponent<Timer>();
-        shootcooldown.Duration = 0.3f;
+        shootcooldown.Duration = 0.1f;
         shootcooldown.Run();
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = audioClip;
     }
     // Update is called once per frame
     void Update()
@@ -66,20 +69,30 @@ public class InputTest : MonoBehaviour
 
             }
         }
-        if (Input.GetKey(KeyCode.JoystickButton7))
+        if (Input.GetKey(KeyCode.JoystickButton7) || Input.GetKey(KeyCode.Space))
         {
             if (shootcooldown.Finished == true)
             {
                 isfire = true;
                 shootcooldown.Run();
+                Vector3 pos = GameObject.Find("rifleposition").transform.position;
+                //pos.z += 2;
+                if (rifleeffect == null)
+                {
+
+                    rifleeffect = Instantiate(rifle, pos, transform.rotation);
+                }
+                rifleeffect.transform.position = pos;
             }
         }
-        if (Input.GetKeyUp(KeyCode.JoystickButton7))
+        if (Input.GetKeyUp(KeyCode.JoystickButton7) || Input.GetKeyUp(KeyCode.Space))
         {
             isfire = false;
-
+            Destroy(rifleeffect);
         }
+
         Fire();
+       isfire = false;
 
     }
 
@@ -229,22 +242,18 @@ public class InputTest : MonoBehaviour
     {
         if (isfire)
         {
+
             Vector3 pos = GameObject.Find("rifleposition").transform.position;
-            //pos.z += 2;
-            if (rifleeffect == null)
-            {
-                
-               rifleeffect = Instantiate(rifle, pos , transform.rotation);
-            }
-            rifleeffect.transform.position = pos;
 
             GameObject shootbullet =  Instantiate(bullet[0], pos, transform.rotation);
             shootbullet.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.forward) * 10000);
+            audioSource.Play();
             //Debug.Log(rifleeffect.transform.position);
         }
         else
         {
-            Destroy(rifleeffect);
+            
+           // Destroy(rifleeffect);
         }
     }
 }

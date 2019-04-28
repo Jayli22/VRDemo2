@@ -198,7 +198,7 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 0aefaa69b3866ee3ae66f07ddb7f44ad Assembly-CSharp.dll:GoogleVR.VideoDemo.VideoPlayerReference
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.InstantPreviewHelper
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Gvr.Internal.EmulatorManager
-2e1a745872292009c006c30e35512b60 Assembly-CSharp.dll:.InputTest
+3ac620970c1fc4c78d8f6228c07ed8b8 Assembly-CSharp.dll:.InputTest
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 77035de2f75c9d7a19377ef6002c9bd8 Assembly-CSharp.dll:.GvrReticlePointer
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton

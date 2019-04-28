@@ -23,9 +23,9 @@ public class EnemyGeneration : MonoBehaviour
     {
         if(generate_timer.Finished == true && generatetime < 10)
         {
-            for (int i = 0; i < 2*generatetime; i++)
+            for (int i = 0; i < generatetime; i++)
             {
-                Vector2 p = Random.insideUnitCircle * 250;
+                Vector2 p = Random.insideUnitCircle * 400;
                 Vector2 pos = p.normalized * (2 + p.magnitude);
                 Vector3 pos2 = new Vector3(pos.x, 0, pos.y);
                 int n = Random.Range(0, 2);
@@ -41,8 +41,11 @@ public class EnemyGeneration : MonoBehaviour
             generate_timer.Run();
             generatetime++;
         }
-        if(generatetime>=10 && GameObject.FindGameObjectsWithTag("Enemy") == null)
+        Debug.Log(generatetime);
+        Debug.Log(GameObject.FindGameObjectWithTag("Enemy"));
+        if (generatetime>=10 && GameObject.FindGameObjectWithTag("Enemy") == null)
         {
+           
             SceneManager.LoadScene("WinScene");
         }
 

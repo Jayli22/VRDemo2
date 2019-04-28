@@ -15,6 +15,8 @@ public class RobotScript : MonoBehaviour
     private CharacterController characterController;
     private bool attackable = false;
     private NavMeshAgent navMeshAgent;
+    private Timer death_timer;
+
     private Timer attackcooldown_timer;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,9 @@ public class RobotScript : MonoBehaviour
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         attackcooldown_timer.Duration = 1.5f;
         attackcooldown_timer.Run();
+        death_timer = gameObject.AddComponent<Timer>();
+        death_timer.Duration = 5f;
+    
 
     }
 
@@ -49,6 +54,10 @@ public class RobotScript : MonoBehaviour
                 attackcooldown_timer.Run();
             }
             navMeshAgent.SetDestination(target.transform.position);
+        }
+        if(death_timer.Finished == true)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -75,6 +84,7 @@ public class RobotScript : MonoBehaviour
             navMeshAgent.isStopped = true;
             alive = false;
             animator.SetTrigger("Die");
+            death_timer.Run();
         }
     }
     public void Attack()
